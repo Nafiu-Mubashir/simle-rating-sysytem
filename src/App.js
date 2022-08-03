@@ -1,24 +1,30 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { Route, Routes } from 'react-router';
+import { useNavigate } from 'react-router';
 import './App.css';
+import Appriciate from './components/Appriciate';
+import Rate from './components/Rate';
 
 function App() {
+  const navigate = useNavigate();
+  const ratings = [1,2,3,4,5];
+  const [nums, setnums] = useState();
+  const submit = () => {
+    if (nums) {
+      navigate("/appriciate", { replace: true })
+    }
+    else{
+      alert("Rate us on the scale of 1 to 5")
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Routes>
+      <Route path="/" element={<Rate ratings={ratings} nums={nums} setnums={setnums} submit={submit}/>} />
+      <Route path="/appriciate" element={<Appriciate nums={nums} setnums={setnums}/>} />
+    </Routes>
+      {/* <Rate /> */}
+    </>
   );
 }
 
